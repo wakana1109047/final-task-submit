@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>マイチケット - LiveHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+            <link rel="icon" href="favicon (3).ico">
+
     <style>
-        :root {
-            --primary-color: #8b5cf6;
-            --secondary-color: #ec4899;
-            --accent-color: #06b6d4;
-            --dark-bg: #18181b;
+        body{
+            background-color: #050606;
+            color: #e5e7eb;
         }
-        
+        :root {
+            --primary-color: #050606;
+            --secondary-color: #0c0f0f;
+            --accent-color: #f3e9ba;
+            --dark-bg: #424245;
+            --text-main: #e5e7eb;
+            --text-sub: #9ca3af;
+            --border-dark: #1f2937;
+        }
+
         .navbar {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-color) 100%);
         }
-        
+
         .page-header {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
             color: white;
             padding: 80px 0 50px 0;
             margin-bottom: 40px;
+            background-image: url(https://okinawa-arena.jp/organizer/plan/live/slider_01.jpg);
+            position: relative;
+            background-size: cover;
+
         }
-        
+
         .stat-card {
-            background: white;
+            background-color: var(--secondary-color);
+            color: var(--text-main);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease;
             cursor: pointer;
         }
-        
+
+        .stat-card .text-muted {
+            color: var(--text-sub) !important;
+        }
+
         .stat-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .stat-icon {
             width: 60px;
             height: 60px;
@@ -48,59 +67,120 @@
             font-size: 1.5rem;
             margin-bottom: 15px;
         }
-        
+
         .ticket-card {
-            background: white;
+            background-color: var(--secondary-color);
+            color: var(--text-main);
+            border-left: 5px solid var(--accent-color);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
-            border-left: 5px solid var(--primary-color);
         }
-        
+
         .ticket-header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 20px;
         }
-        
+
+        .ticket-card .card-body p,
+        .ticket-card .card-body strong {
+            color: var(--text-main);
+        }
+
+        .ticket-card h6.text-muted {
+            color: var(--text-sub) !important;
+        }
+
         .qr-code {
             width: 120px;
             height: 120px;
-            background: white;
+            background-color: #fff;
+            border: 3px solid var(--accent-color);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
         }
-        
+
         .table-card {
-            background: white;
+            background-color: var(--secondary-color);
+            color: var(--text-main);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-        
+
+        .table {
+            color: var(--text-main);
+        }
+
+        .table thead {
+            background-color: #111827;
+            color: var(--text-main);
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(250, 204, 21, 0.08);
+        }
+
         .status-badge {
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 600;
         }
-        
+
         .tab-btn.active {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
         }
-        
+
+        .pagination .page-link {
+            background-color: var(--secondary-color);
+            color: var(--text-main);
+            border-color: var(--border-dark);
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--accent-color);
+            color: #111827;
+            border-color: var(--accent-color);
+        }
+
+        .tab-btn {
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-color);
+            color: #111827;
+        }
+
         footer {
             background-color: var(--dark-bg);
             color: white;
             margin-top: 60px;
         }
+
+        a.footertext {
+            color: #FFF !important;
+            text-decoration: none;
+        }
+
+        a.footertext:hover {
+            text-decoration: underline !important;
+            text-decoration-color: #FFF;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
     </style>
 </head>
+
 <body>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -114,24 +194,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ホーム</a>
+                        <a class="nav-link" href="index.html">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">イベント一覧</a>
+                        <a class="nav-link" href="music-festival-list.html">イベント一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">アーティスト</a>
+                        <a class="nav-link" href="music-artist-list.html">アーティスト</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">チケット購入</a>
+                        <a class="nav-link" href="music-festival-ticket.html">チケット購入</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">マイチケット</a>
                     </li>
                 </ul>
-                <button class="btn btn-light ms-3 fw-bold">
-                    <i class="bi bi-person-circle"></i> 山田太郎
-                </button>
+                <a href="music-login-page.html" class="btn btn-warning ms-3 fw-bold">
+                    <i class="bi bi-person-circle"></i> ログイン
+                </a>
             </div>
         </div>
     </nav>
@@ -139,8 +219,8 @@
     <!-- ページヘッダー -->
     <div class="page-header">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold mb-3">
-                <i class="bi bi-ticket-perforated-fill"></i> マイチケット
+            <h1 class="display-2 fw-bold mb-3">
+                <i class="bi bi-ticket-perforated-fill"></i> My Tickets
             </h1>
             <p class="lead">あなたのチケット情報と参加履歴</p>
         </div>
@@ -151,7 +231,8 @@
         <div class="row g-4 mb-5">
             <div class="col-md-3">
                 <div class="stat-card text-center">
-                    <div class="stat-icon mx-auto" style="background: rgba(139, 92, 246, 0.1); color: var(--primary-color);">
+                    <div class="stat-icon mx-auto"
+                        style="background: rgba(16, 185, 129, 0.1); color: #a855f7;">
                         <i class="bi bi-ticket-perforated-fill"></i>
                     </div>
                     <h3 class="fw-bold mb-1">3</h3>
@@ -160,7 +241,7 @@
             </div>
             <div class="col-md-3">
                 <div class="stat-card text-center">
-                    <div class="stat-icon mx-auto" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                    <div class="stat-icon mx-auto" style="background: rgba(16, 185, 129, 0.18); color: #10b981;">
                         <i class="bi bi-check-circle-fill"></i>
                     </div>
                     <h3 class="fw-bold mb-1">12</h3>
@@ -169,7 +250,8 @@
             </div>
             <div class="col-md-3">
                 <div class="stat-card text-center">
-                    <div class="stat-icon mx-auto" style="background: rgba(236, 72, 153, 0.1); color: var(--secondary-color);">
+                    <div class="stat-icon mx-auto"
+                        style="background: rgba(236, 72, 153, 0.18); color: #ec4899;">
                         <i class="bi bi-heart-fill"></i>
                     </div>
                     <h3 class="fw-bold mb-1">8</h3>
@@ -178,7 +260,8 @@
             </div>
             <div class="col-md-3">
                 <div class="stat-card text-center">
-                    <div class="stat-icon mx-auto" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-color);">
+                    <div class="stat-icon mx-auto"
+                        style="background: rgba(6, 182, 212, 0.18); color: #06b6d4;">
                         <i class="bi bi-star-fill"></i>
                     </div>
                     <h3 class="fw-bold mb-1">4.8</h3>
@@ -190,17 +273,20 @@
         <!-- タブナビゲーション -->
         <ul class="nav nav-pills mb-4" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link tab-btn active" id="upcoming-tab" data-bs-toggle="pill" data-bs-target="#upcoming" type="button" role="tab">
+                <button class="nav-link tab-btn active" id="upcoming-tab" data-bs-toggle="pill"
+                    data-bs-target="#upcoming" type="button" role="tab">
                     <i class="bi bi-calendar-event"></i> 参加予定 (3)
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link tab-btn" id="history-tab" data-bs-toggle="pill" data-bs-target="#history" type="button" role="tab">
+                <button class="nav-link tab-btn" id="history-tab" data-bs-toggle="pill" data-bs-target="#history"
+                    type="button" role="tab">
                     <i class="bi bi-clock-history"></i> 参加履歴 (12)
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link tab-btn" id="cancelled-tab" data-bs-toggle="pill" data-bs-target="#cancelled" type="button" role="tab">
+                <button class="nav-link tab-btn" id="cancelled-tab" data-bs-toggle="pill" data-bs-target="#cancelled"
+                    type="button" role="tab">
                     <i class="bi bi-x-circle"></i> キャンセル済み (2)
                 </button>
             </li>
@@ -216,7 +302,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-8">
                                 <span class="badge bg-warning text-dark mb-2">開催まで 15日</span>
-                                <h4 class="fw-bold mb-2">SUMMER MUSIC FESTIVAL 2024</h4>
+                                <h4 class="fw-bold mb-2">the shes gone</h4>
                                 <p class="mb-1"><i class="bi bi-calendar-event"></i> 2024年12月3日（火） 16:00 開演</p>
                                 <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> 東京ビッグサイト</p>
                             </div>
@@ -263,7 +349,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-8">
                                 <span class="badge bg-warning text-dark mb-2">開催まで 22日</span>
-                                <h4 class="fw-bold mb-2">ROCK NIGHT JAPAN</h4>
+                                <h4 class="fw-bold mb-2">backnumber</h4>
                                 <p class="mb-1"><i class="bi bi-calendar-event"></i> 2024年12月10日（火） 19:00 開演</p>
                                 <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> 大阪城ホール</p>
                             </div>
@@ -310,7 +396,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-8">
                                 <span class="badge bg-info mb-2">開催まで 37日</span>
-                                <h4 class="fw-bold mb-2">WINTER ROCK FESTIVAL</h4>
+                                <h4 class="fw-bold mb-2">HANA</h4>
                                 <p class="mb-1"><i class="bi bi-calendar-event"></i> 2024年12月25日（水） 18:00 開演</p>
                                 <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> 横浜アリーナ</p>
                             </div>
@@ -536,17 +622,17 @@
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
+                        <li><a href="#" class=" footertext text-light text-decoration-none">About</a></li>
+                        <li><a href="#" class=" footertext text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="#" class=" footertext text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サポート</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">ヘルプ</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">お問い合わせ</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class=" footertext text-light text-decoration-none">ヘルプ</a></li>
+                        <li><a href="inquire.html" class=" footertext text-light text-decoration-none">お問い合わせ</a></li>
+                        <li><a href="FAQ.html" class=" footertext text-light text-decoration-none">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -566,4 +652,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

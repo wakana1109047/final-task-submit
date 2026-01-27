@@ -1,37 +1,63 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>チケット購入 - LiveHub</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+            <link rel="icon" href="favicon (3).ico">
+
     <style>
-        :root {
-            --primary-color: #8b5cf6;
-            --secondary-color: #ec4899;
-            --accent-color: #06b6d4;
-            --dark-bg: #18181b;
+        body {
+            background-color: #050606;
+            color: #e5e7eb;
         }
-        
+
+        :root {
+            --primary-color: #050606;
+            --secondary-color: #0c0f0f;
+            --accent-color: #f3e9ba;
+            --dark-bg: #424245;
+            --text-main: #e5e7eb;
+            --text-sub: #9ca3af;
+            --border-dark: #1f2937;
+
+        }
+
         .navbar {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-color) 100%);
         }
-        
+
         .page-header {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
             color: white;
             padding: 80px 0 50px 0;
             margin-bottom: 40px;
+            position: relative;
+            background-image: url(https://cdn-ak.f.st-hatena.com/images/fotolife/s/sbn_13/20191003/20191003160455.jpg);
         }
-        
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
+        }
+
         .step-indicator {
             display: flex;
             justify-content: space-between;
             margin-bottom: 40px;
             position: relative;
         }
-        
+
         .step-indicator::before {
             content: '';
             position: absolute;
@@ -42,14 +68,14 @@
             background: #e5e7eb;
             z-index: 0;
         }
-        
+
         .step {
             flex: 1;
             text-align: center;
             position: relative;
             z-index: 1;
         }
-        
+
         .step-circle {
             width: 50px;
             height: 50px;
@@ -63,40 +89,41 @@
             font-weight: bold;
             color: #9ca3af;
         }
-        
+
         .step.active .step-circle {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-color: var(--primary-color);
             color: white;
         }
-        
+
         .step.completed .step-circle {
             background: #10b981;
             border-color: #10b981;
             color: white;
         }
-        
+
         .ticket-card {
-            border: 3px solid #e5e7eb;
-            border-radius: 15px;
-            padding: 25px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            background: white;
+            background-color: var(--secondary-color);
+            color: var(--text-main);
+            border: 2px solid var(--border-dark);
         }
-        
+
+        .ticket-card ul li {
+            color: var(--text-main);
+        }
+
         .ticket-card:hover {
-            border-color: var(--primary-color);
+            border-color: var(--accent-color);
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
         }
-        
+
         .ticket-card.selected {
-            border-color: var(--primary-color);
+            border-color: var(--accent-color);
             background: rgba(139, 92, 246, 0.05);
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
-        
+
         .price-tag {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
@@ -105,14 +132,23 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
-        
+
         .seat-map {
-            background: #f9fafb;
+            background-color: var(--secondary-color);
+            color: var(--text-main);
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
         }
-        
+
+        .seat-section h6 {
+            color: var(--text-main);
+        }
+
+        .legend-item span {
+            color: var(--text-main);
+        }
+
         .stage {
             background: linear-gradient(135deg, var(--dark-bg), var(--primary-color));
             color: white;
@@ -121,11 +157,11 @@
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         .seat-section {
             margin-bottom: 20px;
         }
-        
+
         .seat {
             width: 30px;
             height: 30px;
@@ -138,62 +174,87 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .seat.available {
-            background: #10b981;
+            background: #16a34a;
             color: white;
         }
-        
+
         .seat.available:hover {
             background: #059669;
             transform: scale(1.1);
         }
-        
+
         .seat.selected {
-            background: var(--primary-color);
-            color: white;
+            background: var(--accent-color);
+            color: #111827;
         }
-        
+
         .seat.sold {
             background: #e5e7eb;
             color: #9ca3af;
             cursor: not-allowed;
         }
-        
+
         .legend-item {
             display: inline-flex;
             align-items: center;
             margin-right: 20px;
         }
-        
+
         .legend-box {
             width: 20px;
             height: 20px;
             border-radius: 3px;
             margin-right: 8px;
         }
-        
+
         .summary-card {
             position: sticky;
             top: 20px;
-            background: white;
+            background-color: var(--secondary-color);
+            color: var(--text-main);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-        
+
+        .summary-card .text-muted {
+            color: var(--text-sub) !important;
+        }
+
+        #totalPrice {
+            color: var(--accent-color) !important;
+        }
+
         .alert-custom {
             border-left: 4px solid;
             border-radius: 10px;
         }
-        
+
         footer {
-            background-color: var(--dark-bg);
+            background-image: url(https://cdn-ak.f.st-hatena.com/images/fotolife/s/sbn_13/20191003/20191003160455.jpg);
             color: white;
             margin-top: 60px;
         }
+
+        a.footertext {
+            color: #FFF !important;
+            text-decoration: none;
+        }
+
+        a.footertext:hover {
+            text-decoration: underline !important;
+            text-decoration-color: #FFF;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
     </style>
 </head>
+
 <body>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -207,24 +268,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">ホーム</a>
+                        <a class="nav-link" href="index.html">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">イベント一覧</a>
+                        <a class="nav-link" href="music-festival-list.html">イベント一覧</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">アーティスト</a>
+                        <a class="nav-link" href="music-artist-list.html">アーティスト</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#">チケット購入</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">マイチケット</a>
+                        <a class="nav-link" href="music-festival-myticket.html">マイチケット</a>
                     </li>
                 </ul>
-                <button class="btn btn-light ms-3 fw-bold">
+                <a href="music-login-page.html" class="btn btn-warning ms-3 fw-bold">
                     <i class="bi bi-person-circle"></i> ログイン
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -234,14 +295,14 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#" class="text-white">ホーム</a></li>
-                    <li class="breadcrumb-item"><a href="#" class="text-white">イベント詳細</a></li>
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white">ホーム</a></li>
+                    <li class="breadcrumb-item"><a href="music-festival-detail.html" class="text-white">イベント詳細</a></li>
                     <li class="breadcrumb-item active text-white" aria-current="page">チケット購入</li>
                 </ol>
             </nav>
-            <h1 class="display-4 fw-bold mb-3">チケット購入</h1>
+            <h1 class="display-2 fw-bold mb-3">Purchase Tickets</h1>
             <p class="lead">SUMMER MUSIC FESTIVAL 2024</p>
-            <p class="mb-0"><i class="bi bi-calendar-event"></i> 2024年12月3日 @ 東京ビッグサイト</p>
+            <!-- <p class="mb-0"><i class="bi bi-calendar-event"></i> 2024年12月3日 @ 東京ビッグサイト</p> -->
         </div>
     </div>
 
@@ -278,7 +339,7 @@
                 <!-- チケット種類選択 -->
                 <div class="mb-4">
                     <h3 class="fw-bold mb-4"><i class="bi bi-ticket-perforated text-primary"></i> チケット種類を選択</h3>
-                    
+
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="ticket-card" data-price="8000" data-type="一般チケット">
@@ -308,9 +369,11 @@
                                     <div class="price-tag">¥15,000</div>
                                 </div>
                                 <ul class="list-unstyled mb-0">
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> VIPエリア入場可能</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> VIPエリア入場可能
+                                    </li>
                                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 優先入場</li>
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 専用ラウンジ利用可能</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 専用ラウンジ利用可能
+                                    </li>
                                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 限定グッズ付き</li>
                                     <li><i class="bi bi-check-circle-fill text-success"></i> ドリンク2杯無料</li>
                                 </ul>
@@ -329,7 +392,8 @@
                                 <ul class="list-unstyled mb-0">
                                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 全ステージ入場可能</li>
                                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 再入場可能</li>
-                                    <li class="mb-2"><i class="bi bi-exclamation-circle-fill text-warning"></i> 当日学生証の提示必須</li>
+                                    <li class="mb-2"><i class="bi bi-exclamation-circle-fill text-warning"></i>
+                                        当日学生証の提示必須</li>
                                     <li><i class="bi bi-check-circle-fill text-success"></i> 25歳以下限定</li>
                                 </ul>
                             </div>
@@ -346,7 +410,8 @@
                                 </div>
                                 <ul class="list-unstyled mb-0">
                                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 2名分のチケット</li>
-                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 通常より¥4,000お得</li>
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 通常より¥4,000お得
+                                    </li>
                                     <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 隣同士の座席保証</li>
                                     <li><i class="bi bi-check-circle-fill text-success"></i> オリジナルグッズ付き</li>
                                 </ul>
@@ -358,7 +423,7 @@
                 <!-- 座席選択 -->
                 <div class="mb-4">
                     <h3 class="fw-bold mb-4"><i class="bi bi-grid-3x3-gap text-primary"></i> 座席を選択</h3>
-                    
+
                     <div class="seat-map">
                         <!-- ステージ -->
                         <div class="stage">
@@ -511,7 +576,7 @@
             <div class="col-lg-4">
                 <div class="summary-card">
                     <h5 class="fw-bold mb-4"><i class="bi bi-cart-check"></i> 購入内容</h5>
-                    
+
                     <div class="mb-4">
                         <h6 class="text-muted mb-3">イベント情報</h6>
                         <p class="mb-1 fw-bold">SUMMER MUSIC FESTIVAL 2024</p>
@@ -561,12 +626,13 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-lg w-100 fw-bold mb-2" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none;">
-                        次へ進む <i class="bi bi-arrow-right"></i>
+                    <a href="music-login-page.html"><button class="btn btn-lg w-100 fw-bold mb-2"
+                        style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none;">
+                        次へ進む <i class="bi bi-arrow-right"></i></a>
                     </button>
-                    <button class="btn btn-outline-secondary btn-lg w-100">
+                    <a href="index.html"><button class="btn btn-outline-secondary btn-lg w-100">
                         <i class="bi bi-arrow-left"></i> 戻る
-                    </button>
+                    </button></a>
 
                     <div class="mt-4 text-center">
                         <small class="text-muted">
@@ -589,17 +655,17 @@
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">利用規約</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">プライバシー</a></li>
+                        <li><a href="#" class=" footertext text-light text-decoration-none">About</a></li>
+                        <li><a href="#" class="footertext text-light text-decoration-none">利用規約</a></li>
+                        <li><a href="#" class="footertext text-light text-decoration-none">プライバシー</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-3">
                     <h6 class="fw-bold mb-3">サポート</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none">ヘルプ</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">お問い合わせ</a></li>
-                        <li><a href="#" class="text-light text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class=" footertext text-light text-decoration-none">ヘルプ</a></li>
+                        <li><a href="inquire.html" class=" footertext text-light text-decoration-none">お問い合わせ</a></li>
+                        <li><a href="FAQ.html" class=" footertext text-light text-decoration-none">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -625,22 +691,24 @@
 
         // チケットカード選択
         document.querySelectorAll('.ticket-card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelectorAll('.ticket-card').forEach(c => c.classList.remove('selected'));
+            card.addEventListener('click', function () {
+                document.querySelectorAll('.ticket-card')
+                    .forEach(c => c.classList.remove('selected'));
+
                 this.classList.add('selected');
-                
-                selectedTicketPrice = parseInt(this.dataset.price);
+
+                selectedTicketPrice = Number(this.dataset.price);
                 selectedTicketType = this.dataset.type;
-                
+
                 updateSummary();
             });
         });
 
         // 座席選択
         document.querySelectorAll('.seat.available').forEach(seat => {
-            seat.addEventListener('click', function() {
+            seat.addEventListener('click', function () {
                 const seatNumber = this.textContent;
-                
+
                 if (this.classList.contains('selected')) {
                     this.classList.remove('selected');
                     selectedSeats = selectedSeats.filter(s => s !== seatNumber);
@@ -648,41 +716,55 @@
                     this.classList.add('selected');
                     selectedSeats.push(seatNumber);
                 }
-                
+
                 updateSummary();
             });
         });
 
         function updateSummary() {
-            // 選択中のチケット表示
+            const seatCount = selectedSeats.length;
+
+            // ===== 金額計算 =====
+            const ticketTotal = selectedTicketPrice * seatCount;
+            const serviceFee = Math.floor(ticketTotal * 0.1);
+            const total = ticketTotal + serviceFee;
+
+            // ===== チケット表示 =====
             if (selectedTicketType) {
                 document.getElementById('selectedTicket').innerHTML = `
-                    <div class="d-flex justify-content-between">
-                        <span>${selectedTicketType}</span>
-                        <span class="fw-bold">¥${selectedTicketPrice.toLocaleString()}</span>
-                    </div>
-                `;
-            }
-
-            // 選択中の座席表示
-            if (selectedSeats.length > 0) {
-                document.getElementById('selectedSeats').innerHTML = `
-                    <div class="d-flex flex-wrap gap-2">
-                        ${selectedSeats.map(seat => `<span class="badge" style="background: var(--primary-color);">${seat}</span>`).join('')}
-                    </div>
-                `;
+                <div class="d-flex justify-content-between">
+                    <span>${selectedTicketType} × ${seatCount || 0}</span>
+                    <span class="fw-bold">¥${ticketTotal.toLocaleString()}</span>
+                </div>
+            `;
             } else {
-                document.getElementById('selectedSeats').innerHTML = '<span class="text-muted">座席を選択してください</span>';
+                document.getElementById('selectedTicket').innerHTML =
+                    '<span class="text-muted">チケットを選択してください</span>';
             }
 
-            // 料金計算
-            const serviceFee = selectedTicketPrice > 0 ? Math.floor(selectedTicketPrice * 0.1) : 0;
-            const total = selectedTicketPrice + serviceFee;
+            // ===== 座席表示 =====
+            if (seatCount > 0) {
+                document.getElementById('selectedSeats').innerHTML = `
+                <div class="d-flex flex-wrap gap-2">
+                    ${selectedSeats.map(seat =>
+                    `<span class="badge" style="background: var(--primary-color);">${seat}</span>`
+                ).join('')}
+                </div>
+            `;
+            } else {
+                document.getElementById('selectedSeats').innerHTML =
+                    '<span class="text-muted">座席を選択してください</span>';
+            }
 
-            document.getElementById('ticketPrice').textContent = `¥${selectedTicketPrice.toLocaleString()}`;
-            document.getElementById('serviceFee').textContent = `¥${serviceFee.toLocaleString()}`;
-            document.getElementById('totalPrice').textContent = `¥${total.toLocaleString()}`;
+            // ===== 金額反映 =====
+            document.getElementById('ticketPrice').textContent =
+                `¥${ticketTotal.toLocaleString()}`;
+            document.getElementById('serviceFee').textContent =
+                `¥${serviceFee.toLocaleString()}`;
+            document.getElementById('totalPrice').textContent =
+                `¥${total.toLocaleString()}`;
         }
     </script>
 </body>
+
 </html>
